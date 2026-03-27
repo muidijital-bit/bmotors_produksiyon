@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B Motors - Premium İçerik ve Çekim Stratejisi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tech: {
+                            bg: '#0B1121',        /* Derin Gece Mavisi */
+                            card: 'rgba(15, 23, 42, 0.4)', /* Cam Kart Rengi */
+                            cyan: '#06b6d4',      /* Neon Cyan */
+                            blue: '#3b82f6',      /* Elektrik Mavi */
+                            accent: '#0ea5e9',    /* Teknolojik Vurgu */
+                            light: '#f8fafc'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Inter"', 'sans-serif'],
+                        display: ['"Montserrat"', 'sans-serif'],
+                        tech: ['"Space Grotesk"', 'sans-serif'], /* Rakamlar ve teknolojik başlıklar için */
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            background-color: #0B1121; 
+            color: #cbd5e1; /* slate-300 */
+            position: relative;
+        }
+
+        /* Teknolojik Izgara (Grid) Arka Planı */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at 50% 30%, black 40%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* Ambient Işıklandırma (Neon Mavi ve Cyan) */
+        .ambient-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .ambient-bg::before {
+            content: '';
+            position: absolute;
+            top: -20%; left: -10%;
+            width: 70vw; height: 70vw;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(0,0,0,0) 60%);
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: pulse-slow 8s infinite alternate;
+        }
+        .ambient-bg::after {
+            content: '';
+            position: absolute;
+            bottom: -20%; right: -10%;
+            width: 60vw; height: 60vw;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(0,0,0,0) 60%);
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: pulse-slow 6s infinite alternate-reverse;
+        }
+
+        /* Dark Glassmorphism Efekti */
+        .glass-card {
+            background: rgba(17, 24, 39, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.15); /* Üstten ışık vurma efekti */
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            border-radius: 1.25rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(14, 165, 233, 0.4);
+            box-shadow: 0 20px 40px -10px rgba(14, 165, 233, 0.15), inset 0 0 20px rgba(14, 165, 233, 0.05);
+            background: rgba(17, 24, 39, 0.7);
+        }
+
+        /* Glassmorphism Menü */
+        .glass-nav {
+            background: rgba(11, 17, 33, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Teknolojik Metin Gradiyentleri */
+        .text-gradient-tech {
+            background: linear-gradient(135deg, #fff 0%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-gradient-neon {
+            background: linear-gradient(to right, #06b6d4, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Orijinal logoyu karanlık temaya uygun bembeyaz yapmak için CSS filtresi */
+        .logo-white {
+            filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255,255,255,0.3));
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0B1121; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0ea5e9; }
+    </style>
+</head>
+<body class="antialiased selection:bg-tech-accent selection:text-white">
+
+    <div class="bg-grid"></div>
+    <div class="ambient-bg"></div>
+
+    <!-- Navbar -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+            
+            <!-- Beyaz Logo -->
+            <a href="#" class="flex items-center">
+                <img src="https://bmotors.com.tr/wp-content/uploads/2025/04/Adsiz-tasarim-8.png" alt="B Motors" class="h-10 md:h-12 object-contain logo-white transition-transform hover:scale-105">
+            </a>
+            
+            <nav class="hidden md:flex space-x-8 text-sm font-semibold font-display tracking-wide text-slate-400">
+                <a href="#strateji" class="hover:text-white hover:drop-shadow-[0_0_8px_rgba(14,165,233,0.8)] transition-all">Strateji</a>
+                <a href="#roadmap" class="hover:text-white hover:drop-shadow-[0_0_8px_rgba(14,165,233,0.8)] transition-all">Çekim Planı</a>
+                <a href="#farkimiz" class="hover:text-white hover:drop-shadow-[0_0_8px_rgba(14,165,233,0.8)] transition-all">Neden Biz?</a>
+                <a href="#teklif" class="text-tech-accent drop-shadow-[0_0_8px_rgba(14,165,233,0.5)] transition-all">Yatırım Planı</a>
+            </nav>
+
+            <a href="#teklif" class="bg-gradient-to-r from-tech-blue to-tech-cyan text-white px-6 py-2.5 rounded-full text-sm font-bold font-display transition-all shadow-[0_0_20px_rgba(14,165,233,0.4)] hover:shadow-[0_0_30px_rgba(14,165,233,0.7)] hover:-translate-y-0.5 uppercase tracking-wider border border-white/20">
+                Teklifi İncele
+            </a>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-24 space-y-32">
+        
+        <!-- Hero Section -->
+        <section class="max-w-7xl mx-auto px-6 relative">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8 relative z-10">
+                    <div class="inline-flex items-center gap-2 glass-card px-4 py-1.5 !rounded-full text-xs font-bold font-display uppercase tracking-widest text-tech-cyan border border-tech-cyan/30">
+                        <i class="fas fa-microchip"></i> Yeni Nesil Satış Motoru
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-extrabold leading-tight text-white tracking-tight">
+                        Sıfır Araç <br/>
+                        <span class="text-gradient-tech">Satışlarını Ateşleyecek</span> <br/>
+                        İçerik Sistemi.
+                    </h1>
+                    
+                    <p class="text-lg text-slate-400 font-light leading-relaxed max-w-xl">
+                        Sıradan videoları unutun. Sıfır araç alıcısının karar verme sürecini hızlandıran, güven inşa eden ve B Motors'un teknolojik vizyonunu yansıtan <strong>veri odaklı içerik mimarisi</strong> inşa ediyoruz.
+                    </p>
+
+                    <div class="flex gap-4 pt-4">
+                        <div class="glass-card flex flex-col p-4 px-6 border border-white/10">
+                            <span class="text-3xl font-tech font-bold text-white">3</span>
+                            <span class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mt-1">Günlük Çekim</span>
+                        </div>
+                        <div class="glass-card flex flex-col p-4 px-6 border border-white/10">
+                            <span class="text-3xl font-tech font-bold text-white">2</span>
+                            <span class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mt-1">Mağaza Turu</span>
+                        </div>
+                        <div class="glass-card flex flex-col p-4 px-6 border border-tech-cyan/30 bg-tech-cyan/5">
+                            <span class="text-3xl font-tech font-bold text-tech-cyan">100%</span>
+                            <span class="text-[10px] text-tech-cyan uppercase tracking-widest font-semibold mt-1">Satış Odaklılık</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Image/Graphic -->
+                <div class="relative hidden lg:block">
+                    <!-- Glassmorphism Image Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-[#0B1121] via-transparent to-transparent z-10"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0B1121] via-transparent to-transparent z-10"></div>
+                    
+                    <!-- Decorative Tech Ring -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] rounded-full border border-tech-cyan/20 animate-[spin_60s_linear_infinite] pointer-events-none"></div>
+                    
+                    <img src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Premium Car Details" class="rounded-2xl opacity-80 object-cover h-[600px] w-full border border-white/10 shadow-[0_0_50px_rgba(14,165,233,0.1)] grayscale-[30%] mix-blend-lighten">
+                    
+                    <!-- Floating Stat Cards -->
+                    <div class="absolute top-10 right-10 z-20 glass-card p-4 shadow-[0_10px_30px_rgba(0,0,0,0.5)] transform translate-x-4 border-l-2 border-l-tech-cyan">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-tech-cyan/10 flex items-center justify-center text-tech-cyan text-lg border border-tech-cyan/20">
+                                <i class="fas fa-headphones"></i>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">ASMR Etkileşimi</div>
+                                <div class="font-tech font-bold text-white text-lg">+%340 İzlenme</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Akılcı Yaklaşımımız (The "Why Us" Strategy) -->
+        <section id="strateji" class="max-w-7xl mx-auto px-6 scroll-mt-24">
+            <div class="text-center mb-16 space-y-4">
+                <h2 class="text-3xl md:text-5xl font-display font-bold text-white">İçerik Değil, <span class="text-gradient-neon">Satış Psikolojisi</span> Üretiyoruz</h2>
+                <p class="text-slate-400 max-w-3xl mx-auto text-lg">Sıfır araç müşterisi rasyonel gibi görünse de duygusal karar verir. Bizim içerik mimarimiz, aracı dijitalde hissettirmek üzerine kuruludur.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 group">
+                    <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center mb-6 border border-white/10 group-hover:border-tech-cyan/50 transition-colors">
+                        <i class="fas fa-car-side text-2xl text-tech-cyan drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]"></i>
+                    </div>
+                    <h3 class="text-xl font-display font-bold text-white mb-3">ASMR & Hissiyat</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Kapı kapanma sesi, dijital ekran tepkileri, motorun ilk çalışma anı. Müşteriye aracı ekrandan hissettirerek showroom'a gelme arzusunu tetikliyoruz.</p>
+                </div>
+                <div class="glass-card p-8 group">
+                    <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center mb-6 border border-white/10 group-hover:border-tech-blue/50 transition-colors">
+                        <i class="fas fa-comments text-2xl text-tech-blue drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"></i>
+                    </div>
+                    <h3 class="text-xl font-display font-bold text-white mb-3">Soru-Cevap & Güven</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">"Neden sıfır almalıyım?", "Kredi imkanları neler?" gibi müşterinin kafasındaki itirazları video ile önceden kırarak, satış ekibinizin işini kolaylaştırıyoruz.</p>
+                </div>
+                <div class="glass-card p-8 group">
+                    <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center mb-6 border border-white/10 group-hover:border-white/50 transition-colors">
+                        <i class="fas fa-bullhorn text-2xl text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"></i>
+                    </div>
+                    <h3 class="text-xl font-display font-bold text-white mb-3">Aciliyet & Kampanya</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Özel kampanyalar, limitli stok uyarıları ve mağaza tanıtımlarıyla sosyal medya kitlesini doğrudan fiziksel bir ziyarete veya DM'ye yönlendiriyoruz.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detaylı Çekim Yol Haritası (Roadmap) -->
+        <section id="roadmap" class="max-w-7xl mx-auto px-6 scroll-mt-24">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6 glass-card p-8 border-l-4 border-l-tech-accent">
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-4">2-3 Günlük <span class="text-gradient-neon">Master Plan</span></h2>
+                    <p class="text-slate-400">Zamanı maksimum verimle kullanmak üzere tasarlanmış detaylı algoritmik çekim takvimi.</p>
+                </div>
+                <div class="bg-tech-accent/10 border border-tech-accent/30 px-6 py-3 rounded-full text-sm font-semibold text-tech-accent flex items-center gap-3 shadow-[0_0_15px_rgba(14,165,233,0.2)]">
+                    <i class="fas fa-clock"></i> Hedef: 12+ Reels & 40+ Premium Fotoğraf
+                </div>
+            </div>
+
+            <div class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-tech-cyan before:via-tech-blue before:to-transparent">
+                
+                <!-- 1. Gün -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0B1121] bg-tech-cyan text-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_15px_rgba(6,182,212,0.6)] z-10">1</div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] glass-card p-6 md:p-8 hover:border-tech-cyan/50">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-display font-bold text-white">Güven & Kurumsallık</h3>
+                            <span class="text-[10px] font-bold bg-tech-cyan/10 text-tech-cyan px-3 py-1 rounded-full border border-tech-cyan/20 uppercase tracking-widest">1. Mağaza & Stüdyo</span>
+                        </div>
+                        <p class="text-tech-cyan text-sm font-semibold mb-4 bg-tech-cyan/10 inline-block px-3 py-1.5 rounded text-glow">Odak: Mağaza Tanıtımı, Kampanyalar, Soru-Cevap</p>
+                        <ul class="space-y-3 text-sm text-slate-400 mt-2">
+                            <li class="flex gap-3"><i class="fas fa-check-circle text-tech-cyan mt-1 drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]"></i> <span><strong>2 Adet Mağaza Tanıtım Reels:</strong> Dron ve FPV kameralarla B Motors'un prestijli vitrinini ve geniş sıfır araç yelpazesini gösteren dinamik tur.</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check-circle text-tech-cyan mt-1 drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]"></i> <span><strong>3 Adet Soru-Cevap Reels:</strong> "Neden 2. el yerine sıfır?", "B Motors finansman avantajları", "Takas desteği" kurguları.</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check-circle text-tech-cyan mt-1 drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]"></i> <span><strong>2 Adet Kampanya Duyuru:</strong> "Bu aya özel", "Sınırlı Stok" vurgulu, doğrudan Lead (talep) toplamaya yönelik agresif kurgular.</span></li>
+                            <li class="flex gap-3"><i class="fas fa-camera text-tech-cyan mt-1 drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]"></i> <span><strong>Fotoğraf Çekimi:</strong> Ekip çalışması, müşteri teslimat anı kurguları ve showroom genel kareleri.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2. Gün -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0B1121] bg-tech-blue text-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_15px_rgba(59,130,246,0.6)] z-10">2</div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] glass-card p-6 md:p-8 hover:border-tech-blue/50">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-display font-bold text-white">Deneyim & Arzu</h3>
+                            <span class="text-[10px] font-bold bg-tech-blue/10 text-tech-blue px-3 py-1 rounded-full border border-tech-blue/20 uppercase tracking-widest">2. Mağaza & Araç İçi</span>
+                        </div>
+                        <p class="text-tech-blue text-sm font-semibold mb-4 bg-tech-blue/10 inline-block px-3 py-1.5 rounded">Odak: ASMR, Donanım Detayları, Konfor</p>
+                        <ul class="space-y-3 text-sm text-slate-400 mt-2">
+                            <li class="flex gap-3"><i class="fas fa-check-circle text-tech-blue mt-1 drop-shadow-[0_0_5px_rgba(59,130,246,0.8)]"></i> <span><strong>2 Adet ASMR Reels:</strong> Premium mikrofonlarla; anahtar sesi, kapı tokluğu, dijital ekran tepkileri, deri koltuk dokunuşu üzerine duyusal videolar.</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check-circle text-tech-blue mt-1 drop-shadow-[0_0_5px_rgba(59,130,246,0.8)]"></i> <span><strong>3 Adet Konfor & Materyal İncelemesi:</strong> "Matrix LED farların sırrı", "Premium ses sistemi testi" gibi araca aşık edecek makro çekimler.</span></li>
+                            <li class="flex gap-3"><i class="fas fa-camera text-tech-blue mt-1 drop-shadow-[0_0_5px_rgba(59,130,246,0.8)]"></i> <span><strong>Fotoğraf Çekimi:</strong> Araçların agresif dış açıları, jant detayları, konsol ve direksiyonun lifestyle yansımalı premium fotoğrafları.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 3. Gün -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#0B1121] bg-slate-400 text-slate-900 font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_15px_rgba(255,255,255,0.3)] z-10">3</div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] glass-card p-6 md:p-8 hover:border-slate-400/50">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-display font-bold text-white">Dış Çekim & Yedekleme</h3>
+                            <span class="text-[10px] font-bold bg-white/5 text-slate-300 px-3 py-1 rounded-full border border-white/10 uppercase tracking-widest">Açık Alan / Opsiyonel</span>
+                        </div>
+                        <p class="text-slate-300 text-sm font-semibold mb-4 bg-white/5 inline-block px-3 py-1.5 rounded">Odak: Dinamik Sürüş, Işık Oyunları ve Revizyon</p>
+                        <ul class="space-y-3 text-sm text-slate-400 mt-2">
+                            <li class="flex gap-3"><i class="fas fa-check-circle text-slate-400 mt-1"></i> <span><strong>Aksiyon Çekimleri (Opsiyonel):</strong> Araçların trafikteki duruşu, viraj performansları veya gün batımı ışığında dış mekan estetik çekimleri.</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check-circle text-slate-400 mt-1"></i> <span><strong>Eksik Tamamlama:</strong> İlk 2 günde gözden kaçan detayların üzerinden geçilmesi.</span></li>
+                            <li class="flex gap-3"><i class="fas fa-camera text-slate-400 mt-1"></i> <span><strong>Genel Stok Çekimi:</strong> Gelecek aylar için kullanılabilecek ekstra fotoğraf stoklarının oluşturulması.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Akıllı Tekliflendirme (Pricing) -->
+        <section id="teklif" class="max-w-7xl mx-auto px-6 scroll-mt-24">
+            <div class="text-center mb-16 space-y-4">
+                <h2 class="text-3xl md:text-5xl font-display font-bold text-white">Ölçeklenebilir <span class="text-gradient-neon">Yatırım Planı</span></h2>
+                <p class="text-slate-400 max-w-2xl mx-auto text-lg">Standart bütçenizi karşılıyoruz. Ancak B Motors'un vizyonuna çok daha uygun, satışlarınızı katlayacak entegre çözümlerimizi de sunmak istiyoruz.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 items-center">
+                
+                <!-- Paket 1: Standart (Mevcut Durum) -->
+                <div class="glass-card p-8 border-l-2 border-l-slate-500 opacity-90">
+                    <div class="mb-6">
+                        <span class="text-slate-400 font-bold tracking-widest uppercase text-[10px] bg-white/5 px-3 py-1 rounded">Paket 1 / Mevcut Bütçe</span>
+                        <h3 class="text-3xl font-display font-bold text-white mt-4">Standart</h3>
+                    </div>
+                    <div class="mb-8 pb-8 border-b border-white/10">
+                        <div class="flex items-baseline gap-2 font-tech">
+                            <span class="text-4xl font-bold text-white">80.000</span>
+                            <span class="text-slate-400">TL</span>
+                        </div>
+                        <div class="text-xs text-slate-500 mt-1">+ KDV / Proje Bazlı</div>
+                    </div>
+                    <ul class="space-y-4 text-sm text-slate-400 mb-8">
+                        <li class="flex items-start gap-3"><i class="fas fa-check text-slate-500 mt-1"></i> <span><strong>12 Adet</strong> Reels Videosu (Standart Kurgu)</span></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-check text-slate-500 mt-1"></i> <span><strong>40 Adet</strong> Profesyonel Fotoğraf</span></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-check text-slate-500 mt-1"></i> <span>2 Günlük Çekim Planı</span></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-check text-slate-500 mt-1"></i> <span>Temel Renk Düzenlemesi</span></li>
+                        <li class="flex items-start gap-3 text-slate-600 line-through"><i class="fas fa-times mt-1"></i> Drone Çekimi</li>
+                        <li class="flex items-start gap-3 text-slate-600 line-through"><i class="fas fa-times mt-1"></i> İleri Seviye Reklam Stratejisi</li>
+                    </ul>
+                    <div class="text-[11px] text-center text-slate-400 font-medium bg-white/5 py-2.5 rounded uppercase tracking-wider">Mevcut kalitenizi devam ettirir.</div>
+                </div>
+
+                <!-- Paket 2: Pro (Önerilen) -->
+                <div class="glass-card p-8 transform lg:-translate-y-4 shadow-[0_0_50px_rgba(14,165,233,0.15)] border border-tech-cyan/50 relative z-10 bg-[rgba(15,23,42,0.8)]">
+                    <div class="absolute top-0 right-0 bg-gradient-to-l from-tech-blue to-tech-cyan text-white text-[10px] font-bold px-4 py-1.5 rounded-bl-xl uppercase tracking-widest shadow-[0_0_15px_rgba(6,182,212,0.5)]">ÖNERİLEN</div>
+                    <div class="mb-6">
+                        <span class="text-tech-cyan font-bold tracking-widest uppercase text-[10px] bg-tech-cyan/10 px-3 py-1 rounded border border-tech-cyan/20">Paket 2 / Tam Performans</span>
+                        <h3 class="text-3xl font-display font-bold text-white mt-4">Premium</h3>
+                    </div>
+                    <div class="mb-8 pb-8 border-b border-white/10">
+                        <div class="flex items-baseline gap-2 font-tech">
+                            <span class="text-5xl font-bold text-tech-cyan drop-shadow-[0_0_10px_rgba(6,182,212,0.4)]">115.000</span>
+                            <span class="text-slate-300 font-semibold">TL</span>
+                        </div>
+                        <div class="text-xs text-tech-cyan/80 font-medium mt-1">+ KDV / Proje Bazlı</div>
+                    </div>
+                    <ul class="space-y-4 text-sm text-slate-300 mb-8 font-medium">
+                        <li class="flex items-start gap-3"><i class="fas fa-star text-tech-cyan mt-1 drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]"></i> <span><strong>16 Adet</strong> Yüksek Etkileşimli Reels (ASMR Dahil)</span></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-star text-tech-cyan mt-1 drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]"></i> <span><strong>60 Adet</strong> Premium Retouch'lı Fotoğraf</span></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-star text-tech-cyan mt-1 drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]"></i> <span><strong>2 Adet Uzun Format</strong> Mağaza Tanıtım Filmi</span></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-star text-tech-cyan mt-1 drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]"></i> <span><strong>Drone Çekimi</strong> (Mağaza dışı ve sürüş)</span></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-star text-tech-cyan mt-1 drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]"></i> <span>3 Günlük Kapsamlı Çekim Takvimi</span></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-star text-tech-cyan mt-1 drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]"></i> <span>Dinamik Kurgu, Ses Tasarımı ve Trend Müzikler</span></li>
+                    </ul>
+                    <div class="text-[11px] text-center text-white font-bold bg-gradient-to-r from-tech-blue/20 to-tech-cyan/20 border border-tech-cyan/30 py-3 rounded-lg uppercase tracking-wider">İçerik Kalitesini Maksimize Eder.</div>
+                </div>
+
+                <!-- Paket 3: Elite (Uçtan Uca) -->
+                <div class="glass-card p-8 border-l-2 border-l-tech-blue">
+                    <div class="mb-6">
+                        <span class="text-tech-blue font-bold tracking-widest uppercase text-[10px] bg-tech-blue/10 px-3 py-1 rounded border border-tech-blue/20">Paket 3 / Uçtan Uca</span>
+                        <h3 class="text-3xl font-display font-bold text-white mt-4">Elite Satış</h3>
+                    </div>
+                    <div class="mb-8 pb-8 border-b border-white/10">
+                        <div class="flex items-baseline gap-2 font-tech">
+                            <span class="text-4xl font-bold text-white">160.000</span>
+                            <span class="text-slate-400">TL</span>
+                        </div>
+                        <div class="text-xs text-tech-blue mt-1">+ KDV / Aylık Partnerlik</div>
+                    </div>
+                    <ul class="space-y-4 text-sm text-slate-400 mb-8">
+                        <li class="flex items-start gap-3"><i class="fas fa-bolt text-tech-blue mt-1"></i> <span><strong>Premium Paket'in Tümü</strong> (16 Reels, 60 Foto vs.)</span></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-bolt text-tech-blue mt-1"></i> <span><strong>Profesyonel Sunucu Desteği</strong> (Araçları anlatacak yüz)</span></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-bolt text-tech-blue mt-1"></i> <span><strong>Meta & Google Reklam Yönetimi:</strong> İçeriklerin sponsorlu reklamlarla sunulması (Lead toplama).</span></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-bolt text-tech-blue mt-1"></i> <span>Sosyal Medya Paylaşım Yönetimi</span></li>
+                    </ul>
+                    <div class="text-[11px] text-center text-tech-blue font-medium bg-tech-blue/10 py-2.5 rounded uppercase tracking-wider">İçeriği doğrudan satınalmaya dönüştürür.</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="max-w-4xl mx-auto px-6 text-center">
+            <div class="glass-card p-12 border-t-2 border-t-tech-cyan bg-[rgba(15,23,42,0.6)] shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden group">
+                <!-- Arka Plan Dekoratif Blur (Hover Effect) -->
+                <div class="absolute -top-32 -right-32 w-64 h-64 bg-tech-cyan/20 rounded-full blur-[80px] group-hover:bg-tech-cyan/30 transition-all duration-700"></div>
+                <div class="absolute -bottom-32 -left-32 w-64 h-64 bg-tech-blue/20 rounded-full blur-[80px] group-hover:bg-tech-blue/30 transition-all duration-700"></div>
+                
+                <!-- Beyaz Logo + Parlama -->
+                <div class="inline-block mb-8 relative z-10">
+                    <img src="https://bmotors.com.tr/wp-content/uploads/2025/04/Adsiz-tasarim-8.png" alt="B Motors Logo" class="h-16 mx-auto logo-white">
+                </div>
+
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-6 relative z-10">Sıradan Videolar Değil, <br/> <span class="text-gradient-neon">Satış Makineleri</span> Yaratalım.</h2>
+                <p class="text-slate-400 mb-10 max-w-xl mx-auto text-lg relative z-10">Hedeflerinizi ve B Motors'un teknolojik vizyonunu bir üst seviyeye taşımak için detayları hemen değerlendirelim.</p>
+                
+                <a href="mailto:info@bmotors.com.tr" class="relative z-10 inline-flex items-center gap-3 bg-gradient-to-r from-tech-blue to-tech-cyan text-white px-8 py-4 rounded-full font-bold font-display transition-all duration-300 shadow-[0_0_20px_rgba(14,165,233,0.4)] hover:shadow-[0_0_40px_rgba(14,165,233,0.6)] hover:-translate-y-1 uppercase tracking-widest border border-white/20">
+                    Toplantı Planla <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-white/10 py-8 text-center text-sm text-slate-500 bg-[#0B1121]/80 backdrop-blur-md relative z-10">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="font-medium tracking-wide">&copy; 2026 B Motors Teknoloji ve İçerik Stratejisi. Tüm hakları saklıdır.</div>
+            <div class="flex gap-6 uppercase tracking-wider text-[10px] font-bold">
+                <span class="hover:text-tech-cyan transition-colors cursor-pointer">Gizlilik</span>
+                <span class="hover:text-tech-cyan transition-colors cursor-pointer">Şartlar</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
